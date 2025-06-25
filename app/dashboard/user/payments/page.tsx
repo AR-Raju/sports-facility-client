@@ -1,5 +1,7 @@
 "use client";
 
+import { UserSidebar } from "@/components/dashboard/user-sidebar";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +49,7 @@ interface Payment {
   transactionId: string;
 }
 
-export default function PaymentsPage() {
+function PaymentsPageContent() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -322,5 +324,13 @@ export default function PaymentsPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function PaymentsPage() {
+  return (
+    <DashboardLayout sidebar={<UserSidebar />}>
+      <PaymentsPageContent />
+    </DashboardLayout>
   );
 }

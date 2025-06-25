@@ -1,4 +1,6 @@
 "use client";
+import { AdminSidebar } from "@/components/dashboard/admin-sidebar";
+import { DashboardLayout } from "@/components/layout/dashboard-layout";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
@@ -38,7 +40,7 @@ import { MoreHorizontal } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const AdminUsers = () => {
+const AdminUsersContent = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState<
     "active" | "suspended" | "all"
@@ -192,4 +194,10 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default function AdminUsers() {
+  return (
+    <DashboardLayout sidebar={<AdminSidebar />}>
+      <AdminUsersContent />
+    </DashboardLayout>
+  );
+}
