@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAuthToken } from "./auth";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   timeout: 10000,
   withCredentials: true, // Include cookies in requests
   headers: {
