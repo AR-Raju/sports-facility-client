@@ -1,5 +1,6 @@
 {
-  "name": "my-v0-project",
+  "name": "sports-facility-booking",
+  "description": "A web application for booking sports facilities, built with Next.js, React, and various modern libraries.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
