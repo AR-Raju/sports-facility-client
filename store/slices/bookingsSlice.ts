@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { bookingsService } from "@/services/bookings";
 import type { Booking, BookingFormData, TimeSlot } from "@/types";
 import {
@@ -55,7 +56,8 @@ export const createBooking = createAsyncThunk(
 
 export const fetchUserBookings = createAsyncThunk(
   "bookings/fetchUserBookings",
-  async (params?: { page?: number; limit?: number }, { rejectWithValue }) => {
+  async (params: { page?: number; limit?: number } | undefined, thunkAPI) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       const response = await bookingsService.getUserBookings(params);
       return {
@@ -73,14 +75,17 @@ export const fetchUserBookings = createAsyncThunk(
 export const fetchAllBookings = createAsyncThunk(
   "bookings/fetchAllBookings",
   async (
-    params?: {
-      page?: number;
-      limit?: number;
-      date?: string;
-      isBooked?: string;
-    },
-    { rejectWithValue }
+    params:
+      | {
+          page?: number;
+          limit?: number;
+          date?: string;
+          isBooked?: string;
+        }
+      | undefined,
+    thunkAPI
   ) => {
+    const { rejectWithValue } = thunkAPI;
     try {
       const response = await bookingsService.getAllBookings(params);
       return {
@@ -104,6 +109,23 @@ export const cancelBooking = createAsyncThunk(
     } catch (error: any) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to cancel booking"
+      );
+    }
+  }
+);
+
+export const updateBookingStatus = createAsyncThunk(
+  "bookings/updateBookingStatus",
+  async (params: { id: string; status: string }, { rejectWithValue }) => {
+    try {
+      const response = await bookingsService.updateBookingStatus(
+        params.id,
+        params.status
+      );
+      return { id: params.id, booking: response.data };
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to update booking status"
       );
     }
   }

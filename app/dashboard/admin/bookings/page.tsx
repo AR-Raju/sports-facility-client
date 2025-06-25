@@ -103,7 +103,9 @@ function AdminBookingsContent() {
     bookingId: string,
     status: "confirmed" | "canceled"
   ) => {
-    const result = await dispatch(updateBookingStatus({ bookingId, status }));
+    const result = await dispatch(
+      updateBookingStatus({ id: bookingId, status })
+    );
     if (updateBookingStatus.fulfilled.match(result)) {
       toast.success(`Booking ${status} successfully`);
     }

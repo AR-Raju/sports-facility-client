@@ -30,6 +30,14 @@ export const bookingsService = {
     return response.data;
   },
 
+  async updateBookingStatus(
+    id: string,
+    status: string
+  ): Promise<ApiResponse<Booking>> {
+    const response = await api.patch(`/bookings/${id}/status`, { status });
+    return response.data;
+  },
+
   async checkAvailability(params: {
     date: string;
     facility?: string;
